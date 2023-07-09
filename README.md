@@ -1,7 +1,5 @@
 # API REST
 
-![preview](./images/tela.png)
-
 ### Descrição:
 Esta API é um projeto desenvolvido em Java utilizando a tecnologia Spring Boot e o software de teste Postman. Seu principal objetivo é estabelecer a comunicação entre o front-end de uma aplicação e o backend, permitindo operaçoes CRUD nos dados recebidos pelo front-end, e atualizar as mudanças desses dados em um banco de dados MySQL.
 
