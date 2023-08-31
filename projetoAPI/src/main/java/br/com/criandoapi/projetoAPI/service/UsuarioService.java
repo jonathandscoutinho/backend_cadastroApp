@@ -2,6 +2,8 @@ package br.com.criandoapi.projetoAPI.service;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.criandoapi.projetoAPI.model.Usuario;
@@ -11,10 +13,12 @@ import br.com.criandoapi.projetoAPI.repository.IUsuario;
 public class UsuarioService {
 	//instanciação do CRUD Repository
 	private IUsuario repository;
+	private PasswordEncoder passwordEncoder;
 	
 	//Construtor do objeto repository acima
 	public  UsuarioService(IUsuario repository) {
 		this.repository = repository;
+		this.passwordEncoder = new BCryptPasswordEncoder();
 	}
 
 	//GET
@@ -25,12 +29,16 @@ public class UsuarioService {
 	
 	//POST
 	public Usuario criarUsuario(Usuario usuario) {
+		String encoder = this.passwordEncoder.encode(usuario.getSenha());
+		usuario.setSenha(encoder);
 		Usuario usuarioNovo = repository.save(usuario);
 		return usuarioNovo;
 	}
 	
 	//PUT
 	public Usuario  editarUsuario(Usuario usuario) {
+	String encoder = this.passwordEncoder.encode(usuario.getSenha());
+	usuario.setSenha(encoder);
 	Usuario usuarioNovo = repository.save(usuario);
 	return usuarioNovo;
 	}
