@@ -1,6 +1,7 @@
 package br.com.criandoapi.projetoAPI.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,5 +48,17 @@ public class UsuarioService {
 	public Boolean excluirUsuario(Integer id) {
 		repository.deleteById(id);
 		return true;
+	}
+
+	public Boolean validarSenha(Usuario usuario) {
+	    Optional<Usuario> optionalUsuario = repository.findById(usuario.getId());
+
+	    if (optionalUsuario.isPresent()) {
+	        String senha = optionalUsuario.get().getSenha();
+	        Boolean valid = passwordEncoder.matches(usuario.getSenha(), senha);
+	        return valid;
+	    } else {
+	        return false;
+	    }
 	}
 }
